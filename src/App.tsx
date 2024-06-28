@@ -5,7 +5,7 @@ import { theme } from "./theme";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Stack>
+      <Stack p={4}>
         <Typography variant="h2" textAlign="center" mb={1} fontWeight={500}>
           Crud Cards
         </Typography>

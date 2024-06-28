@@ -6,24 +6,31 @@ import { ICardItem } from "../../assets/types/cards";
 
 function CardsLayout() {
   const [cards, setCards] = useState<ICardItem[]>([]);
+  const [counter, setCounter] = useState<number>(1);
 
   useEffect(() => {
     setCards([
       {
-        id: 1,
-        description: "desc",
-        heading: "heading",
+        id: 0,
+        description: "A beautiful scenery.",
+        heading: "A scenery 0",
       },
     ]);
   }, []);
 
   const onAddCardHandler = () => {
     const newCard: ICardItem = {
-      id: 100,
-      description: "desc",
-      heading: "heading",
+      id: counter,
+      description: "A beautiful scenery.",
+      heading: `A scenery ${counter}`,
     };
     setCards((prev) => [newCard, ...prev]);
+    setCounter((prev) => prev + 1);
+  };
+
+  const onDeleteHandler = (id: number) => {
+    const updatedCards = cards.filter((card) => card.id !== id);
+    setCards(updatedCards);
   };
 
   return (
@@ -36,11 +43,7 @@ function CardsLayout() {
       <Grid container spacing={4}>
         {cards.map((card) => (
           <Grid key={card.id} item xs={12} sm={6} md={4} lg={3}>
-            <CardItem
-              description={card.description}
-              heading={card.heading}
-              imageUri={card?.imageUri}
-            />
+            <CardItem details={card} onDelete={onDeleteHandler} />
           </Grid>
         ))}
       </Grid>

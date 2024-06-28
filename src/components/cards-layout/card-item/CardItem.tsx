@@ -6,14 +6,16 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { ICardItem } from "../../../assets/types/cards";
 
 interface CardItemProps {
-  imageUri?: string;
-  heading: string;
-  description: string;
+  details: ICardItem;
+  onDelete: (id: number) => void;
 }
 
-function CardItem({ description, heading, imageUri }: CardItemProps) {
+function CardItem({ details, onDelete }: CardItemProps) {
+  const { description, id, heading, imageUri } = details;
+
   return (
     <Card>
       <CardMedia
@@ -33,8 +35,10 @@ function CardItem({ description, heading, imageUri }: CardItemProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Edit</Button>
-        <Button size="small">Delete</Button>
+        {/* <Button size="small">Edit</Button> */}
+        <Button size="small" onClick={() => onDelete(id)}>
+          Delete
+        </Button>
       </CardActions>
     </Card>
   );
